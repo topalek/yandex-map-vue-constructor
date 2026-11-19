@@ -128,6 +128,17 @@ export default {
             const type = this.markerTypes.find((item) => item.id === typeId)
             return type ? type.label : 'Метка'
         },
+
+        markerTooltip(marker) {
+            const parts = []
+            if (marker.title) {
+                parts.push(marker.title)
+            }
+            if (marker.description) {
+                parts.push(marker.description)
+            }
+            return parts.length > 0 ? parts.join('\n') : this.markerTypeLabel(marker.type)
+        },
     },
 
     beforeUnmount() {
@@ -144,7 +155,7 @@ export default {
             :onDragMove="handleMarkerDragMove" :onDragEnd="(coordinates) => endMarkerDrag(marker.id, coordinates)"
             position="top left-center">
             <button type="button" class="marker-pin" :class="{ active: editingMarkerId === marker.id }"
-                :style="{ background: marker.color }" :title="marker.title || markerTypeLabel(marker.type)"
+                :style="{ background: marker.color }" :title="markerTooltip(marker)"
                 :aria-label="marker.title || markerTypeLabel(marker.type)" @click.stop="openMarkerMenu(marker.id)">
                 <span class="marker-pin__icon" :style="getIconStyle(marker.type)" aria-hidden="true"></span>
             </button>
@@ -169,19 +180,18 @@ export default {
     padding: 0;
     border: 3px solid #fff;
     border-radius: 50%;
-    transform: rotate(-45deg);
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
     cursor: pointer;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .marker-pin:hover {
-    transform: rotate(-45deg) scale(1.1);
+    transform: scale(1.1);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
 }
 
 .marker-pin.active {
-    transform: rotate(-45deg) scale(1.15);
+    transform: scale(1.15);
     box-shadow: 0 6px 16px rgba(0, 0, 0, 0.6);
 }
 
