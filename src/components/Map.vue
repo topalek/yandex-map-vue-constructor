@@ -1,5 +1,15 @@
 <script>
 import { markRaw } from 'vue'
+import AntennaIcon from '@hugeicons/core-free-icons/AntennaIcon'
+import Cabinet01Icon from '@hugeicons/core-free-icons/Cabinet01Icon'
+import CctvIcon from '@hugeicons/core-free-icons/CctvIcon'
+import ElectricTower01Icon from '@hugeicons/core-free-icons/ElectricTower01Icon'
+import Link02Icon from '@hugeicons/core-free-icons/Link02Icon'
+import Location01Icon from '@hugeicons/core-free-icons/Location01Icon'
+import RadioTowerIcon from '@hugeicons/core-free-icons/RadioTowerIcon'
+import ShuffleIcon from '@hugeicons/core-free-icons/ShuffleIcon'
+import TrafficConeIcon from '@hugeicons/core-free-icons/TrafficConeIcon'
+import UserIcon from '@hugeicons/core-free-icons/UserIcon'
 import {
   YandexMap,
   YandexMapDefaultSchemeLayer,
@@ -26,16 +36,16 @@ const MAP_TYPE_HYBRID = 'hybrid'
 const INITIAL_CENTER = [37.990024, 44.940178]
 
 const MARKER_TYPES = [
-  { id: 'bs', label: 'БС', icon: '🏠', iconPath: '/marker-icons/bs.png' },
-  { id: 'bs-mbt', label: 'БС МБТ', icon: '🏢', iconPath: '/marker-icons/bs-mbt.png' },
-  { id: 'tkd', label: 'ТКД', icon: '🚧', iconPath: '/marker-icons/tkd.png' },
-  { id: 'camera', label: 'Камера', icon: '📷', iconPath: '/marker-icons/camera.png' },
-  { id: 'cabinet', label: 'Шкаф', icon: '🗄️', iconPath: '/marker-icons/cabinet.png' },
-  { id: 'coupling', label: 'Муфта', icon: '🔗', iconPath: '/marker-icons/coupling.png' },
-  { id: 'subscriber', label: 'Абонент', icon: '👤', iconPath: '/marker-icons/subscriber.png' },
-  { id: 'support', label: 'Опора', icon: '⚡', iconPath: '/marker-icons/support.png' },
-  { id: 'cross', label: 'Кросс', icon: '🔀', iconPath: '/marker-icons/cross.png' },
-  { id: 'other', label: 'Другое', icon: '📍', iconPath: '/marker-icons/other.png' },
+  { id: 'bs', label: 'БС', icon: RadioTowerIcon },
+  { id: 'bs-mbt', label: 'БС МБТ', icon: AntennaIcon },
+  { id: 'tkd', label: 'ТКД', icon: TrafficConeIcon },
+  { id: 'camera', label: 'Камера', icon: CctvIcon },
+  { id: 'cabinet', label: 'Шкаф', icon: Cabinet01Icon },
+  { id: 'coupling', label: 'Муфта', icon: Link02Icon },
+  { id: 'subscriber', label: 'Абонент', icon: UserIcon },
+  { id: 'support', label: 'Опора', icon: ElectricTower01Icon },
+  { id: 'cross', label: 'Кросс', icon: ShuffleIcon },
+  { id: 'other', label: 'Другое', icon: Location01Icon },
 ]
 
 const MARKER_COLORS = [

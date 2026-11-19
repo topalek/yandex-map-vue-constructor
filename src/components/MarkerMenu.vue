@@ -43,25 +43,6 @@ export default {
         handleDelete() {
             this.$emit('delete')
         },
-
-        getTypeIcon(typeId) {
-            const type = this.markerTypes.find((item) => item.id === typeId)
-            if (!type || !type.iconPath) return ''
-            return type.iconPath
-        },
-
-        getTypeStyle(typeId) {
-            const type = this.markerTypes.find((item) => item.id === typeId)
-            if (!type || !type.iconPath) {
-                return {}
-            }
-            return {
-                backgroundImage: `url(${type.iconPath})`,
-                backgroundSize: 'contain',
-                backgroundRepeat: 'no-repeat',
-                backgroundPosition: 'center',
-            }
-        },
     },
 }
 </script>
@@ -79,8 +60,6 @@ export default {
             <span>Вид</span>
             <select v-model="selectedMarker.type" @change="handleTypeChange(selectedMarker.type)">
                 <option v-for="type in markerTypes" :key="type.id" :value="type.id">
-                    <span v-if="type.iconPath" class="type-option-icon" :style="getTypeStyle(type.id)"></span>
-                    <span v-else class="type-option-text">{{ type.icon }}</span>
                     {{ type.label }}
                 </option>
             </select>
@@ -192,14 +171,6 @@ export default {
     border-color: #2b7de9;
     outline: 2px solid rgba(43, 125, 233, 0.35);
     outline-offset: 1px;
-}
-
-.type-option-icon {
-    width: 24px;
-    height: 24px;
-    display: inline-block;
-    vertical-align: middle;
-    margin-right: 6px;
 }
 
 .type-option-text {

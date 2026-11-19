@@ -1,12 +1,14 @@
 <script>
-import { markRaw } from 'vue'
 import { YandexMapMarker } from 'vue-yandex-maps'
+import { HugeiconsIcon } from '@hugeicons/vue'
+import Location01Icon from '@hugeicons/core-free-icons/Location01Icon'
 
 export default {
     name: 'Markers',
 
     components: {
         YandexMapMarker,
+        HugeiconsIcon,
     },
 
     props: {
@@ -60,19 +62,6 @@ export default {
     },
 
     methods: {
-        getIconStyle(typeId) {
-            const type = this.markerTypes.find((item) => item.id === typeId)
-            if (!type || !type.iconPath) {
-                return {}
-            }
-            return {
-                backgroundImage: `url(${type.iconPath})`,
-                backgroundSize: 'contain',
-                backgroundRepeat: 'no-repeat',
-                backgroundPosition: 'center',
-            }
-        },
-
         handleMarkerClick(markerId) {
             if (this.suppressClick) {
                 return
@@ -118,10 +107,9 @@ export default {
             }, 300)
         },
 
-        markerTypeIcon(typeId) {
+        markerIcon(typeId) {
             const type = this.markerTypes.find((item) => item.id === typeId)
-            if (!type || !type.iconPath) return ''
-            return type.iconPath
+            return type && type.icon ? type.icon : Location01Icon
         },
 
         markerTypeLabel(typeId) {
@@ -155,9 +143,10 @@ export default {
             :onDragMove="handleMarkerDragMove" :onDragEnd="(coordinates) => endMarkerDrag(marker.id, coordinates)"
             position="top left-center">
             <button type="button" class="marker-pin" :class="{ active: editingMarkerId === marker.id }"
-                :style="{ background: marker.color }" :title="markerTooltip(marker)"
+                :title="markerTooltip(marker)"
                 :aria-label="marker.title || markerTypeLabel(marker.type)" @click.stop="openMarkerMenu(marker.id)">
-                <span class="marker-pin__icon" :style="getIconStyle(marker.type)" aria-hidden="true"></span>
+                <HugeiconsIcon class="marker-pin__icon" :icon="markerIcon(marker.type)" :size="20"
+                    :color="marker.color" :stroke-width="1.8" aria-hidden="true" />
             </button>
         </YandexMapMarker>
 
@@ -180,6 +169,7 @@ export default {
     padding: 0;
     border: 3px solid #fff;
     border-radius: 50%;
+    background: #fff;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
     cursor: pointer;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
@@ -196,33 +186,7 @@ export default {
 }
 
 .marker-pin__icon {
-    width: 24px;
-    height: 24px;
-    pointer-events: none;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.ruler-point {
     display: block;
-    width: 12px;
-    height: 12px;
-    border: 2px solid #e11d48;
-    border-radius: 50%;
-    background: #fff;
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.35);
-}
-
-.ruler-point::before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 6px;
-    height: 6px;
-    background: #e11d48;
-    border-radius: 50%;
+    pointer-events: none;
 }
 </style>
